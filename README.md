@@ -1,15 +1,14 @@
 # Zejneb Demaj — Photography & Artwork
 
-A minimal, image-first portfolio site: a quiet gallery of photography and artwork with a simple project view for each piece. It's plain HTML, CSS and JavaScript in a single file, with no build step, dependencies or backend.
+A minimal, image-first portfolio site: a fixed left sidebar with your name and navigation, and photographs stacked full width on the right. It's plain HTML, CSS and JavaScript in a single file, with no build step, dependencies or backend.
 
 ## Pages
 
 | Route | Page |
 | --- | --- |
-| `#works` | Photography gallery (home) |
-| `#artwork` | Artwork gallery |
-| `#work/photo-N` | Single photograph, with a "Next work" link |
-| `#piece/untamed-spring` | Single artwork |
+| `#works` | Photography (home), opens on Iridescence |
+| `#works/iridescence`, `#works/portland`, `#works/bosnia` | Photography, one page per series, chosen from the list beside the main nav |
+| `#artwork` | Artwork |
 | `#about`, `#contact` | Text pages |
 
 ## Project structure
@@ -20,7 +19,9 @@ favicon.svg                 Browser tab icon
 assets/
   Portland-2026/            Photography from Portland, 2026
   Bosnia-2026/              Photography from Bosnia, 2026
+  Iridescence/              Photography for the Iridescence series
   artwork/                  Paintings and other artwork
+  fonts/                    EB Garamond (SIL Open Font License, see OFL.txt)
 ```
 
 ## Run locally
@@ -30,25 +31,20 @@ Open `index.html` in a browser. No installation is required.
 ## Add a photograph
 
 1. Save the image (JPEG or WebP) in `assets/Portland-2026/`, or create a new folder in `assets/` for a new series, for example `assets/Oregon-Coast-2026/`.
-2. In `index.html`, add a `<figure>` to the gallery, copying an existing one and changing the `href`, `aria-label`, `src` and `alt`:
+2. In `index.html`, add a `<figure data-series="portland">` (or `bosnia`, `iridescence`) to the gallery, copying an existing one and changing the `src` and `alt`:
 
    ```html
-   <figure><a href="#work/photo-7" aria-label="View Your title"><img src="assets/Portland-2026/photo-7.jpg" alt="Describe the photo" loading="lazy"></a>
-   <figcaption><span class="caption-title">Your title</span><span class="caption-subtitle">Portland, 2026</span></figcaption></figure>
+   <figure data-series="portland"><img src="assets/Portland-2026/photo-7.jpg" alt="Describe the photo" loading="lazy" decoding="async"></figure>
    ```
 
-3. In the `photos` array in the `<script>` at the bottom of `index.html`, add a matching entry. The `slug` must match the `href`, and `index` is the figure's position in the gallery, counting from 0:
-
-   ```js
-   {slug:'photo-7', title:'Your title', subtitle:'Portland, 2026', alt:'Describe the photo', index:6}
-   ```
+   For a new series, also add a link to the `#series-nav` list, and add its name to `seriesList` and `seriesTitle` in the `<script>`.
 
 Write descriptive `alt` text for every image so the site works for screen reader users.
 
 ## Customize
 
-- **Name and copy:** edit the header, About and Contact sections, the footer, and the `<title>` and `<meta name="description">` in `index.html`.
-- **Colors and type:** edit the CSS variables (`--bg`, `--ink`, `--muted`) in the `<style>` block.
+- **Name and copy:** edit the sidebar name, About and Contact sections, the copyright line, and the `<title>` and `<meta name="description">` in `index.html`.
+- **Colors and type:** edit the CSS variables (`--bg`, `--ink`, `--muted`, `--serif`) in the `<style>` block.
 
 ## Deploy
 
